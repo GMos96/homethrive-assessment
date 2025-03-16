@@ -18,7 +18,10 @@ const getAxios = (config: FetchConfig): AxiosInstance => {
   });
 };
 
-export const get = async <T>(url: string, config: FetchConfig): Promise<T> => {
+export const get = async <T>(
+  url: string,
+  config: FetchConfig = { type: 'authenticated' },
+): Promise<T> => {
   return getAxios(config)
     .get<T>(`${apiUrl}${url}`)
     .then((res) => res.data);

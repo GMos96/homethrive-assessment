@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 
-type SubmitButtonProps = {
+export type SubmitButtonProps = {
   submitting?: boolean;
 };
 
