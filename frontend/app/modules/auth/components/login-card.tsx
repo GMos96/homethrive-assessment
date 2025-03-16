@@ -1,10 +1,12 @@
 import { LoginForm } from '@/modules/auth/components/login-form';
-import { Card } from '@/components/ui/card/card';
+import { Card, CardBody } from '@/components/ui/card/card';
 
 export const LoginCard = () => {
   return (
     <Card minW="md" size="lg">
-      <LoginForm></LoginForm>
+      <CardBody>
+        <LoginForm></LoginForm>
+      </CardBody>
     </Card>
   );
 };

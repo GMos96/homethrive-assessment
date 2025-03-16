@@ -17,9 +17,12 @@ export class Medication extends OwnedEntity {
   @Column({ length: 64 })
   dosageUnit: DosageUnit = DosageUnit.MG;
 
-  @Column({ type: 'bit' })
+  @Column({ type: 'boolean' })
   active: boolean = true;
 
-  @OneToMany(() => ScheduledDoseEntity, (scheduledDose) => scheduledDose.id)
+  @OneToMany(
+    () => ScheduledDoseEntity,
+    (scheduledDose) => scheduledDose.medicationId,
+  )
   scheduledDoses: ScheduledDoseEntity[];
 }

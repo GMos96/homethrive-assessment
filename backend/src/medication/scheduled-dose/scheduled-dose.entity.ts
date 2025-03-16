@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -20,7 +21,7 @@ export class ScheduledDoseEntity extends OwnedEntity {
   @Column({ length: 64 })
   scheduledUnit: ScheduleUnit = ScheduleUnit.DAY;
 
-  @Column({ type: 'bit' })
+  @Column({ type: 'boolean' })
   taken: boolean = false;
 
   @Column()

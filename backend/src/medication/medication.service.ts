@@ -14,7 +14,12 @@ export class MedicationService {
   ) {}
 
   async findAllByAccountId(accountId: number): Promise<Medication[]> {
-    return this.medicationRepository.findBy({ accountId });
+    return this.medicationRepository
+      .createQueryBuilder('medication')
+      .leftJoinAndSelect('medication.scheduledDoses', 'scheduledDose')
+      .where('medication.accountId = :accountId', { accountId })
+      .andWhere('scheduledDose.taken = false')
+      .getMany();
   }
 
   async create(medication: CreateMedicationDTO): Promise<void> {
@@ -24,6 +29,7 @@ export class MedicationService {
       dosage,
       dosageUnit,
       accountId,
+      active: true,
     });
     const { scheduledUnit, scheduledValue } = medication;
     await this.scheduledDoseService.create({

@@ -3,7 +3,7 @@ import { LoginCard } from '@/modules/auth/components/login-card';
 
 const Login = () => {
   return (
-    <Container>
+    <Container centered={true}>
       <LoginCard></LoginCard>
     </Container>
   );

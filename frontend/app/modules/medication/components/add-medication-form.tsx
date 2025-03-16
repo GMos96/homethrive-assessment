@@ -1,0 +1,75 @@
+import { Form } from '@/components/ui/form/form';
+import { Stack } from '@/components/ui/stack/stack';
+import { usePost } from '@/hooks/usePost';
+import { MedicationService } from '@/modules/medication/service/medication.service';
+import type { MedicationDTO } from '@/modules/medication/dto/medication-list.dto';
+import { FormField } from '@/components/ui/form/form-field';
+import { ControlledInput } from '@/components/ui/input/input';
+import { createListCollection, HStack } from '@chakra-ui/react';
+import { DialogCancelButton, DialogSubmitButton } from '@/components/ui/dialog';
+import { ControlledSelect } from '@/components/ui/select/select';
+import { ControlledNumericInput } from '@/components/ui/input/numeric-input';
+
+type Props = {
+  onSuccess: () => void;
+};
+
+const dosageUnits = createListCollection({
+  items: [{ label: 'MG', value: 'mg' }],
+});
+
+const frequencyUnits = createListCollection({
+  items: [
+    { label: 'Daily', value: 'day' },
+    { label: 'Weekly', value: 'week' },
+  ],
+});
+
+export const AddMedicationForm = ({ onSuccess }: Props) => {
+  const { loading, post } = usePost(MedicationService.createMedication);
+
+  const handleSubmit = (data: MedicationDTO) => {
+    post(data).then(() => {
+      onSuccess();
+    });
+  };
+
+  return (
+    <Stack>
+      <Form onSubmit={handleSubmit}>
+        <FormField label="Medication Name">
+          <ControlledInput fieldName="name"></ControlledInput>
+        </FormField>
+
+        <HStack>
+          <FormField label="Dosage">
+            <ControlledNumericInput fieldName="dosage"></ControlledNumericInput>
+          </FormField>
+          <FormField label="Units">
+            <ControlledSelect
+              fieldName="dosageUnit"
+              collection={dosageUnits}
+            ></ControlledSelect>
+          </FormField>
+        </HStack>
+
+        <HStack gap={5}>
+          <FormField label="Frequency">
+            <ControlledNumericInput fieldName="scheduledValue"></ControlledNumericInput>
+          </FormField>
+          <FormField label="Frequency Units">
+            <ControlledSelect
+              fieldName="scheduledUnit"
+              collection={frequencyUnits}
+            ></ControlledSelect>
+          </FormField>
+        </HStack>
+
+        <HStack gap={3} justifyContent="flex-end">
+          <DialogSubmitButton submitting={loading}></DialogSubmitButton>
+          <DialogCancelButton></DialogCancelButton>
+        </HStack>
+      </Form>
+    </Stack>
+  );
+};
