@@ -1,14 +1,8 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Account } from '../account/account.entity';
+import { Column, Entity, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { OwnedEntity } from '../common/entity/owned.entity';
 
 @Entity()
-export class CareRecipient {
+export class CareRecipient extends OwnedEntity {
   @PrimaryGeneratedColumn()
   id: string;
 
@@ -17,8 +11,4 @@ export class CareRecipient {
 
   @Column({ length: 128 })
   lastName: string;
-
-  @ManyToOne(() => Account, (account) => account.id)
-  @JoinColumn()
-  accountId: number;
 }
