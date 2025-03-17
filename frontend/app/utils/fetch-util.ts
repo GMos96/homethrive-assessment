@@ -29,7 +29,7 @@ export const get = async <T>(
 
 export const post = async <T>(
   url: string,
-  body: unknown,
+  body?: unknown,
   config: FetchConfig = { type: 'authenticated' },
 ): Promise<T> => {
   return getAxios(config)

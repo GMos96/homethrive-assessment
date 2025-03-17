@@ -50,4 +50,8 @@ export class MedicationService {
       accountId,
     });
   }
+
+  async completeDose(medicationId: number, accountId: number): Promise<void> {
+    await this.scheduledDoseService.completeDose(medicationId, accountId);
+  }
 }

@@ -15,4 +15,7 @@ export const MedicationService = {
   ): Promise<void> {
     return await patch<void>(`/medication/${medicationId}/active`, { active });
   },
+  async markAsTaken(medicationId: number) {
+    return await post<void>(`/medication/${medicationId}/scheduled-dose`);
+  },
 };

@@ -7,8 +7,8 @@ import {
 } from '@/components/ui/card/card';
 import { Stack } from '@/components/ui/stack/stack';
 import { HStack } from '@chakra-ui/react';
-import { Button } from '@/components/ui/button';
 import { InactivateMedicationButton } from '@/modules/medication/components/inactivate-medication-button';
+import { MarkAsTakenButton } from '@/modules/medication/components/mark-as-taken-button';
 
 type Props = {
   medication: MedicationDTO;
@@ -38,7 +38,7 @@ export const MedicationCard = ({ medication, onMutate }: Props) => {
             medication={medication}
             onMutate={onMutate}
           ></InactivateMedicationButton>
-          <Button variant="subtle">Mark as Taken</Button>
+          <MarkAsTakenButton medication={medication} onMutate={onMutate} />
         </HStack>
       </CardFooter>
     </Card>

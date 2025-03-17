@@ -1,8 +1,9 @@
-import { IsEnum, IsPositive } from 'class-validator';
+import { IsEnum, IsInt, IsPositive } from 'class-validator';
 import { ScheduleUnit } from '../schedule-unit';
 
 export class CreateScheduledDoseDTO {
   @IsPositive()
+  @IsInt()
   scheduledValue: number;
 
   @IsEnum(ScheduleUnit)
