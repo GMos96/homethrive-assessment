@@ -6,19 +6,10 @@ import {
   defaultConfig,
   type SystemContext,
 } from '@chakra-ui/react';
-import {
-  ColorModeProvider,
-  type ColorModeProviderProps,
-} from '@/components/ui/color-mode';
+import { type ColorModeProviderProps } from '@/components/ui/color-mode';
 
 export function Provider(props: ColorModeProviderProps) {
-  const system: SystemContext = createSystem(defaultConfig, {
-    disableLayers: true,
-  });
+  const system: SystemContext = createSystem(defaultConfig, {});
 
-  return (
-    <ChakraProvider value={system}>
-      <ColorModeProvider {...props} />
-    </ChakraProvider>
-  );
+  return <ChakraProvider value={system}>{props.children}</ChakraProvider>;
 }

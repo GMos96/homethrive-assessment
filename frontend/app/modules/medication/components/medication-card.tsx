@@ -1,6 +1,13 @@
 import type { MedicationDTO } from '@/modules/medication/dto/medication-list.dto';
-import { Card, CardBody, CardHeader } from '@/components/ui/card/card';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card/card';
 import { Stack } from '@/components/ui/stack/stack';
+import { HStack } from '@chakra-ui/react';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   medication: MedicationDTO;
@@ -14,15 +21,28 @@ export const MedicationCard = ({ medication }: Props) => {
       </CardHeader>
       <CardBody>
         <Stack gap={3}>
-          <p>Active: {medication.active ? 'Yes' : 'No'}</p>
+          <div>Active: {medication.active ? 'Yes' : 'No'}</div>
           {medication.scheduledDoses && (
-            <p>
+            <div>
               Next Scheduled Dose:{' '}
-              {new Date(medication.scheduledDoses[0].dueDate).toLocaleString()}
-            </p>
+              {formatDate(medication.scheduledDoses[0]?.dueDate)}
+            </div>
           )}
         </Stack>
       </CardBody>
+      <CardFooter>
+        <HStack>
+          <Button variant="subtle">Inactivate Medication</Button>
+          <Button variant="subtle">Mark as Taken</Button>
+        </HStack>
+      </CardFooter>
     </Card>
   );
+};
+
+const formatDate = (date: Date | string | number) => {
+  if (typeof date === 'string' || typeof date === 'number') {
+    date = new Date(date);
+  }
+  return date?.toLocaleDateString('en-US', {});
 };

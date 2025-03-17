@@ -9,7 +9,7 @@ export const Container = ({ children, centered = false }: ContainerProps) => {
   if (centered) {
     className = className.concat(' items-center justify-center');
   } else {
-    className = className.concat(' items-start justify-start');
+    className = className.concat(' items-stretch justify-start');
   }
 
   return (

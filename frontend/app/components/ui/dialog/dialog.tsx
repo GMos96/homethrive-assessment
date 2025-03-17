@@ -30,7 +30,7 @@ export const DialogContent = React.forwardRef<
       {backdrop && <ChakraDialog.Backdrop />}
       <ChakraDialog.Positioner>
         <ChakraDialog.Content ref={ref} {...rest}>
-          <Theme appearance={'dark'}>{children}</Theme>
+          {children}
         </ChakraDialog.Content>
       </ChakraDialog.Positioner>
     </Portal>
