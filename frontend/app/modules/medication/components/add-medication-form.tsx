@@ -1,6 +1,6 @@
 import { Form } from '@/components/ui/form/form';
 import { Stack } from '@/components/ui/stack/stack';
-import { usePost } from '@/hooks/usePost';
+import { useServerMutation } from '@/hooks/useServerMutation';
 import { MedicationService } from '@/modules/medication/service/medication.service';
 import type { MedicationDTO } from '@/modules/medication/dto/medication-list.dto';
 import { FormField } from '@/components/ui/form/form-field';
@@ -26,10 +26,12 @@ const frequencyUnits = createListCollection({
 });
 
 export const AddMedicationForm = ({ onSuccess }: Props) => {
-  const { loading, post } = usePost(MedicationService.createMedication);
+  const { loading, mutate } = useServerMutation(
+    MedicationService.createMedication,
+  );
 
   const handleSubmit = (data: MedicationDTO) => {
-    post(data).then(() => {
+    mutate(data).then(() => {
       onSuccess();
     });
   };

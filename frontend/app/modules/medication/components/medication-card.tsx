@@ -8,12 +8,14 @@ import {
 import { Stack } from '@/components/ui/stack/stack';
 import { HStack } from '@chakra-ui/react';
 import { Button } from '@/components/ui/button';
+import { InactivateMedicationButton } from '@/modules/medication/components/inactivate-medication-button';
 
 type Props = {
   medication: MedicationDTO;
+  onMutate: () => void;
 };
 
-export const MedicationCard = ({ medication }: Props) => {
+export const MedicationCard = ({ medication, onMutate }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -32,7 +34,10 @@ export const MedicationCard = ({ medication }: Props) => {
       </CardBody>
       <CardFooter>
         <HStack>
-          <Button variant="subtle">Inactivate Medication</Button>
+          <InactivateMedicationButton
+            medication={medication}
+            onMutate={onMutate}
+          ></InactivateMedicationButton>
           <Button variant="subtle">Mark as Taken</Button>
         </HStack>
       </CardFooter>
@@ -41,6 +46,10 @@ export const MedicationCard = ({ medication }: Props) => {
 };
 
 const formatDate = (date: Date | string | number) => {
+  if (!date) {
+    return;
+  }
+
   if (typeof date === 'string' || typeof date === 'number') {
     date = new Date(date);
   }

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Medication } from './medication.entity';
 import { MedicationService } from './medication.service';
 import { CreateMedicationDTO } from './dto/create-medication.dto';
@@ -24,5 +33,19 @@ export class MedicationController {
       ...medication,
       accountId: request.user.userId,
     });
+  }
+
+  @Patch('/:id/active')
+  @UseGuards(JwtAuthGuard)
+  async updateMedication(
+    @Req() request,
+    @Param('id') id: number,
+    @Body() { active }: { active: boolean },
+  ): Promise<void> {
+    return this.medicationService.updateActiveStatus(
+      id,
+      active,
+      request.user.userId,
+    );
   }
 }

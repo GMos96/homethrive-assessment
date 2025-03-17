@@ -39,4 +39,15 @@ export class MedicationService {
       medicationId: id,
     });
   }
+
+  async updateActiveStatus(
+    medicationId: number,
+    status: boolean,
+    accountId: number,
+  ): Promise<void> {
+    await this.medicationRepository.update(medicationId, {
+      active: status,
+      accountId,
+    });
+  }
 }

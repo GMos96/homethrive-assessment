@@ -4,11 +4,7 @@ import type { MedicationListDTO } from '@/modules/medication/dto/medication-list
 import { MedicationCard } from '@/modules/medication/components/medication-card';
 import { Stack } from '@/components/ui/stack/stack';
 import { HStack } from '@chakra-ui/react';
-import {
-  DialogButton,
-  DialogContent,
-  DialogRoot,
-} from '@/components/ui/dialog';
+import { DialogButton } from '@/components/ui/dialog';
 import { AddMedicationForm } from '@/modules/medication/components/add-medication-form';
 
 export const MedicationList = () => {
@@ -17,9 +13,11 @@ export const MedicationList = () => {
   );
 
   const refresh = () => {
-    // TODO: Much better refresh experience
+    // TODO: Much better refresh experience, bug with modal
     window.location.reload();
   };
+
+  // TODO: loading state
 
   return (
     <Stack>
@@ -32,7 +30,11 @@ export const MedicationList = () => {
         </DialogButton.Root>
       </HStack>
       {data?.map((medication) => (
-        <MedicationCard medication={medication} key={medication.id} />
+        <MedicationCard
+          medication={medication}
+          key={medication.id}
+          onMutate={refresh}
+        />
       ))}
     </Stack>
   );

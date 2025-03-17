@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-export const usePost = <Body, ReturnType = void>(
+export const useServerMutation = <Body, ReturnType = void>(
   fetcher: (body: Body) => Promise<ReturnType>,
 ) => {
   const [loading, setLoading] = useState(false);
 
-  const post = async (body: Body): Promise<ReturnType> => {
+  const mutate = async (body: Body): Promise<ReturnType> => {
     setLoading(true);
     return fetcher(body)
       .then((data) => {
@@ -16,5 +16,5 @@ export const usePost = <Body, ReturnType = void>(
       .finally(() => setLoading(false));
   };
 
-  return { loading, post };
+  return { loading, mutate };
 };

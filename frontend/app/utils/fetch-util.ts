@@ -39,3 +39,16 @@ export const post = async <T>(
       (error: AxiosError) => Promise.reject(error?.response?.data),
     );
 };
+
+export const patch = async <T>(
+  url: string,
+  body: unknown,
+  config: FetchConfig = { type: 'authenticated' },
+): Promise<T> => {
+  return getAxios(config)
+    .patch<T>(`${apiUrl}${url}`, body)
+    .then(
+      (res) => res.data,
+      (error: AxiosError) => Promise.reject(error?.response?.data),
+    );
+};
