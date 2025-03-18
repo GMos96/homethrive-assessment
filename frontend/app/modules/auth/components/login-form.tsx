@@ -44,7 +44,7 @@ export const LoginForm = () => {
     <Fieldset title="Login" subtitle="Please enter your credentials">
       <Form onSubmit={login} errors={errors}>
         <FormField label="Email Address" fieldName="email" required>
-          <ControlledInput></ControlledInput>
+          <ControlledInput type="email"></ControlledInput>
         </FormField>
 
         <FormField label="Password" fieldName="password" required>
