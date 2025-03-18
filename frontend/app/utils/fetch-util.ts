@@ -50,10 +50,12 @@ export const patch = async <T>(
 };
 
 const handleError = (error: AxiosError) => {
-  toaster.create({
-    description: error.message,
-    type: 'error',
-  });
+  if (error.status && error.status >= 500) {
+    toaster.create({
+      description: error.message,
+      type: 'error',
+    });
+  }
 
-  return Promise.reject(error);
+  return Promise.reject(error?.response?.data);
 };
