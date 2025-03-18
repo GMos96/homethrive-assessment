@@ -1,3 +1,5 @@
+import { toaster } from '@/components/ui/toaster';
+
 const apiUrl = 'http://localhost:3000';
 import axios, { type AxiosError, type AxiosInstance } from 'axios';
 
@@ -24,7 +26,7 @@ export const get = async <T>(
 ): Promise<T> => {
   return getAxios(config)
     .get<T>(`${apiUrl}${url}`)
-    .then((res) => res.data);
+    .then((res) => res.data, handleError);
 };
 
 export const post = async <T>(
@@ -34,10 +36,7 @@ export const post = async <T>(
 ): Promise<T> => {
   return getAxios(config)
     .post<T>(`${apiUrl}${url}`, body)
-    .then(
-      (res) => res.data,
-      (error: AxiosError) => Promise.reject(error?.response?.data),
-    );
+    .then((res) => res.data, handleError);
 };
 
 export const patch = async <T>(
@@ -47,8 +46,14 @@ export const patch = async <T>(
 ): Promise<T> => {
   return getAxios(config)
     .patch<T>(`${apiUrl}${url}`, body)
-    .then(
-      (res) => res.data,
-      (error: AxiosError) => Promise.reject(error?.response?.data),
-    );
+    .then((res) => res.data, handleError);
+};
+
+const handleError = (error: AxiosError) => {
+  toaster.create({
+    description: error.message,
+    type: 'error',
+  });
+
+  return Promise.reject(error);
 };

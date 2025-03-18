@@ -30,7 +30,10 @@ export const LoginForm = () => {
         </FormField>
 
         <FormField label="Password">
-          <ControlledInput fieldName="password"></ControlledInput>
+          <ControlledInput
+            fieldName="password"
+            type="password"
+          ></ControlledInput>
         </FormField>
 
         <SubmitButton submitting={loading}></SubmitButton>

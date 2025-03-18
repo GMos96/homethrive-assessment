@@ -10,7 +10,8 @@ import type { Route } from './+types/root';
 import { Provider } from '@/providers/provider';
 import './app.css';
 import { Header } from './components/segments/header';
-import { Container, Stack } from '@chakra-ui/react';
+import { Container, Stack, Toast } from '@chakra-ui/react';
+import { Toaster } from '@/components/ui/toaster';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -54,6 +55,7 @@ export default function App() {
         flexGrow={1}
       >
         <Outlet />
+        <Toaster />
       </Container>
     </Stack>
   );

@@ -28,11 +28,11 @@ export const AddCareRecipientForm = ({ onSuccess }: FormProps) => {
       <Stack>
         <Form onSubmit={(value) => handleSubmit(value)}>
           <FormField label="First Name">
-            <ControlledInput fieldName="firstName"></ControlledInput>
+            <ControlledInput fieldName="firstName" required></ControlledInput>
           </FormField>
 
           <FormField label="Last Name">
-            <ControlledInput fieldName="lastName"></ControlledInput>
+            <ControlledInput fieldName="lastName" required></ControlledInput>
           </FormField>
 
           <HStack justifyContent="flex-end">
