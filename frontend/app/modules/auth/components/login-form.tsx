@@ -10,12 +10,13 @@ import type { LoginDTO } from '@/modules/auth/dto/login.dto';
 import { useContext, useState } from 'react';
 import { AuthDispatchContext } from '@/core/context/auth.context';
 import { toaster } from '@/components/ui/toaster';
+import type { NestError, ValidationError } from '@/lib/types';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { mutate, loading } = useServerMutation<LoginDTO>(API.login);
   const setAuthenticated = useContext(AuthDispatchContext);
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState<ValidationError[]>();
 
   const login = (loginDTO: LoginDTO) => {
     mutate(loginDTO).then(
@@ -23,12 +24,15 @@ export const LoginForm = () => {
         setAuthenticated(true);
         navigate('/care-recipient');
       },
-      (error) => {
-        if (error.error === 'Validation Error') {
+      (error: NestError<ValidationError[] | string>) => {
+        if (
+          error.error === 'Validation Error' &&
+          typeof error.message === 'object'
+        ) {
           setErrors(error.message);
-        } else if (error.statusCode === 401) {
+        } else {
           toaster.create({
-            description: error.message,
+            description: error.message as string,
             type: 'error',
           });
         }
@@ -39,16 +43,12 @@ export const LoginForm = () => {
   return (
     <Fieldset title="Login" subtitle="Please enter your credentials">
       <Form onSubmit={login} errors={errors}>
-        <FormField label="Email Address" fieldName="email">
-          <ControlledInput fieldName="email" required></ControlledInput>
+        <FormField label="Email Address" fieldName="email" required>
+          <ControlledInput></ControlledInput>
         </FormField>
 
-        <FormField label="Password" fieldName="password">
-          <ControlledInput
-            fieldName="password"
-            type="password"
-            required
-          ></ControlledInput>
+        <FormField label="Password" fieldName="password" required>
+          <ControlledInput type="password"></ControlledInput>
         </FormField>
 
         <SubmitButton submitting={loading}></SubmitButton>

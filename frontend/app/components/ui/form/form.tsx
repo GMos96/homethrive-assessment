@@ -1,9 +1,10 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { type PropsWithChildren, useEffect } from 'react';
+import type { ValidationError } from '@/lib/types';
 
-type FormProps<> = {
+type FormProps = {
   onSubmit: (data: any) => void;
-  errors?: { fieldName: string; errors: string[] }[];
+  errors?: ValidationError[];
 } & PropsWithChildren;
 
 export const Form = ({ onSubmit, children, errors }: FormProps) => {
@@ -14,6 +15,7 @@ export const Form = ({ onSubmit, children, errors }: FormProps) => {
       errors.forEach((error) => {
         methods.setError('root', {
           type: 'serverError',
+          // @ts-ignore
           name: error.fieldName,
           message: error.errors?.join(' '),
         });

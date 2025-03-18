@@ -5,26 +5,16 @@ import { MedicationService } from '@/modules/medication/service/medication.servi
 import type { MedicationDTO } from '@/modules/medication/dto/medication-list.dto';
 import { FormField } from '@/components/ui/form/form-field';
 import { ControlledInput } from '@/components/ui/input/input';
-import { createListCollection, HStack } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 import { DialogCancelButton, DialogSubmitButton } from '@/components/ui/dialog';
 import { ControlledSelect } from '@/components/ui/select/select';
 import { ControlledNumericInput } from '@/components/ui/input/numeric-input';
+import { MedicationConstants } from '@/modules/medication/constants/medication.constants';
 
 type Props = {
   onSuccess: () => void;
   careRecipientId: number;
 };
-
-const dosageUnits = createListCollection({
-  items: [{ label: 'MG', value: 'mg' }],
-});
-
-const frequencyUnits = createListCollection({
-  items: [
-    { label: 'Daily', value: 'day' },
-    { label: 'Weekly', value: 'week' },
-  ],
-});
 
 export const AddMedicationForm = ({ onSuccess, careRecipientId }: Props) => {
   const { loading, mutate } = useServerMutation(
@@ -37,23 +27,21 @@ export const AddMedicationForm = ({ onSuccess, careRecipientId }: Props) => {
     });
   };
 
+  const { dosageUnits, frequencyUnits } = MedicationConstants;
+
   return (
     <Stack>
       <Form onSubmit={handleSubmit}>
-        <FormField label="Medication Name" fieldName="name">
-          <ControlledInput fieldName="name" required={true}></ControlledInput>
+        <FormField label="Medication Name" fieldName="name" required>
+          <ControlledInput fieldName="name"></ControlledInput>
         </FormField>
 
         <HStack>
-          <FormField label="Dosage" fieldName="dosage">
-            <ControlledNumericInput
-              fieldName="dosage"
-              required={true}
-            ></ControlledNumericInput>
+          <FormField label="Dosage" fieldName="dosage" required>
+            <ControlledNumericInput fieldName="dosage"></ControlledNumericInput>
           </FormField>
-          <FormField label="Units" fieldName="dosageUnit">
+          <FormField label="Units" fieldName="dosageUnit" required>
             <ControlledSelect
-              required={true}
               fieldName="dosageUnit"
               collection={dosageUnits}
             ></ControlledSelect>
@@ -61,15 +49,11 @@ export const AddMedicationForm = ({ onSuccess, careRecipientId }: Props) => {
         </HStack>
 
         <HStack gap={5}>
-          <FormField label="Frequency" fieldName="scheduledValue">
-            <ControlledNumericInput
-              fieldName="scheduledValue"
-              required={true}
-            ></ControlledNumericInput>
+          <FormField label="Frequency" fieldName="scheduledValue" required>
+            <ControlledNumericInput fieldName="scheduledValue"></ControlledNumericInput>
           </FormField>
-          <FormField label="Frequency Units" fieldName="scheduledUnit">
+          <FormField label="Frequency Units" fieldName="scheduledUnit" required>
             <ControlledSelect
-              required={true}
               fieldName="scheduledUnit"
               collection={frequencyUnits}
             ></ControlledSelect>
