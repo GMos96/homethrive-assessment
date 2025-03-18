@@ -7,13 +7,17 @@ import { useNavigate } from 'react-router';
 import { API } from '@/modules/auth/service/auth.service';
 import { useServerMutation } from '@/hooks/useServerMutation';
 import type { LoginDTO } from '@/modules/auth/dto/login.dto';
+import { useContext } from 'react';
+import { AuthDispatchContext } from '@/core/context/auth.context';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { mutate, loading } = useServerMutation<LoginDTO>(API.login);
+  const setAuthenticated = useContext(AuthDispatchContext);
 
   const login = (loginDTO: LoginDTO) => {
     mutate(loginDTO).then(() => {
+      setAuthenticated(true);
       navigate('/care-recipient');
     });
   };

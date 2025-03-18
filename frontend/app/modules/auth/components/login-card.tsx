@@ -3,7 +3,7 @@ import { Card, CardBody } from '@/components/ui/card/card';
 
 export const LoginCard = () => {
   return (
-    <Card minW="md" size="lg">
+    <Card minW="md" maxW="lg" size="lg">
       <CardBody>
         <LoginForm></LoginForm>
       </CardBody>

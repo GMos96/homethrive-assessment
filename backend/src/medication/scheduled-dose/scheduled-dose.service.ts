@@ -14,7 +14,7 @@ export class ScheduledDoseService {
 
   async create(scheduledDose: CreateScheduledDoseDTO) {
     const today = new Date();
-    today.setHours(0, 0, 0);
+    today.setHours(0, 0, 0, 0);
 
     return this.scheduledDoseRepository.save({
       ...scheduledDose,

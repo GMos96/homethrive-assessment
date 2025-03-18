@@ -1,11 +1,11 @@
-import { Container } from '@/components/ui/container/container';
 import { LoginCard } from '@/modules/auth/components/login-card';
+import { Stack } from '@chakra-ui/react';
 
 const Login = () => {
   return (
-    <Container centered={true}>
+    <Stack justifyContent="center" alignItems="center" minH="2xl">
       <LoginCard></LoginCard>
-    </Container>
+    </Stack>
   );
 };
 

@@ -44,6 +44,16 @@ describe('ScheduledDoseService', () => {
         medicationId: 1,
       }),
     ).toEqual(expectedDate);
+
+    const secondExpectedDate = new Date(2020, 1, 30, 0);
+    expect(
+      service.calculateScheduledDose(expectedDate, {
+        scheduledValue: 1,
+        scheduledUnit: ScheduleUnit.DAY,
+        accountId: 1,
+        medicationId: 1,
+      }),
+    ).toEqual(secondExpectedDate);
   });
 
   it('should have accurate schedule doses for 3 / day', () => {
