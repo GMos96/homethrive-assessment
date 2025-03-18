@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -20,8 +21,14 @@ export class MedicationController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  async getAllMedications(@Req() request: Request): Promise<Medication[]> {
-    return this.medicationService.findAllByAccountId(request.user.userId);
+  async getAllMedications(
+    @Req() request: Request,
+    @Query('careRecipientId') careRecipientId: number,
+  ): Promise<Medication[]> {
+    return this.medicationService.findAllByCareRecipient(
+      careRecipientId,
+      request.user.userId,
+    );
   }
 
   @Post()

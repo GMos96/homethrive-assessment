@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ScheduledDoseService } from './scheduled-dose.service';
 import { ScheduleUnit } from './schedule-unit';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { ScheduledDoseEntity } from './scheduled-dose.entity';
+import { ScheduledDose } from './scheduled.dose.entity';
 
 export const mockRepository = jest.fn(() => ({
   metadata: {
@@ -19,7 +19,7 @@ describe('ScheduledDoseService', () => {
       providers: [
         ScheduledDoseService,
         {
-          provide: getRepositoryToken(ScheduledDoseEntity),
+          provide: getRepositoryToken(ScheduledDose),
           useClass: mockRepository,
         },
       ],

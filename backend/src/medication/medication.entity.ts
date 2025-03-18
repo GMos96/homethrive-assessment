@@ -1,7 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { DosageUnit } from './dosage-unit';
-import { ScheduledDoseEntity } from './scheduled-dose/scheduled-dose.entity';
+import { ScheduledDose } from './scheduled-dose/scheduled.dose.entity';
 import { OwnedEntity } from '../common/entity/owned.entity';
+import { CareRecipient } from '../care-recipient/care-recipient.entity';
 
 @Entity()
 export class Medication extends OwnedEntity {
@@ -20,9 +28,10 @@ export class Medication extends OwnedEntity {
   @Column({ type: 'boolean' })
   active: boolean = true;
 
-  @OneToMany(
-    () => ScheduledDoseEntity,
-    (scheduledDose) => scheduledDose.medicationId,
-  )
-  scheduledDoses: ScheduledDoseEntity[];
+  @ManyToOne(() => CareRecipient, (recipient) => recipient.id)
+  @JoinColumn({ name: 'careRecipientId', referencedColumnName: 'id' })
+  careRecipientId: number;
+
+  @OneToMany(() => ScheduledDose, (scheduledDose) => scheduledDose.medicationId)
+  scheduledDoses: ScheduledDose[];
 }

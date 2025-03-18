@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ScheduledDoseEntity } from './scheduled-dose.entity';
+import { ScheduledDose } from './scheduled.dose.entity';
 import { CreateScheduledDoseDTO } from './dto/create-scheduled-dose.dto';
 import { ScheduleUnit } from './schedule-unit';
 
 @Injectable()
 export class ScheduledDoseService {
   constructor(
-    @InjectRepository(ScheduledDoseEntity)
-    private scheduledDoseRepository: Repository<ScheduledDoseEntity>,
+    @InjectRepository(ScheduledDose)
+    private scheduledDoseRepository: Repository<ScheduledDose>,
   ) {}
 
   async create(scheduledDose: CreateScheduledDoseDTO) {
@@ -24,7 +24,7 @@ export class ScheduledDoseService {
   }
 
   async completeDose(medicationId: number, accountId: number): Promise<void> {
-    const { scheduledUnit, scheduledValue, dueDate }: ScheduledDoseEntity =
+    const { scheduledUnit, scheduledValue, dueDate }: ScheduledDose =
       await this.scheduledDoseRepository.findOneByOrFail({
         accountId,
         medicationId,

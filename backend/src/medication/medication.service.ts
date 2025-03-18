@@ -13,23 +13,31 @@ export class MedicationService {
     private scheduledDoseService: ScheduledDoseService,
   ) {}
 
-  async findAllByAccountId(accountId: number): Promise<Medication[]> {
+  async findAllByCareRecipient(
+    careRecipientId: number,
+    accountId: number,
+  ): Promise<Medication[]> {
     return this.medicationRepository
       .createQueryBuilder('medication')
       .leftJoinAndSelect('medication.scheduledDoses', 'scheduledDose')
       .where('medication.accountId = :accountId', { accountId })
+      .andWhere('medication.careRecipientId = :careRecipientId', {
+        careRecipientId,
+      })
       .andWhere('scheduledDose.taken = false')
+      .orderBy('scheduledDose.dueDate', 'ASC')
       .getMany();
   }
 
   async create(medication: CreateMedicationDTO): Promise<void> {
-    const { name, dosage, dosageUnit, accountId } = medication;
+    const { name, dosage, dosageUnit, accountId, careRecipientId } = medication;
     const { id } = await this.medicationRepository.save({
       name,
       dosage,
       dosageUnit,
       accountId,
       active: true,
+      careRecipientId,
     });
     const { scheduledUnit, scheduledValue } = medication;
     await this.scheduledDoseService.create({

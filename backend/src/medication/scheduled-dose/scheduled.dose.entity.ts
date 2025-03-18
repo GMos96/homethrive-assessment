@@ -2,7 +2,6 @@ import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -11,7 +10,7 @@ import { OwnedEntity } from '../../common/entity/owned.entity';
 import { Medication } from '../medication.entity';
 
 @Entity()
-export class ScheduledDoseEntity extends OwnedEntity {
+export class ScheduledDose extends OwnedEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

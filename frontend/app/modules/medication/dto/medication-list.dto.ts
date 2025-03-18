@@ -1,3 +1,5 @@
+import type { ScheduledDoseDTO } from '@/modules/medication/dto/scheduled-dose.dto';
+
 export type MedicationDTO = {
   id: number;
   name: string;
@@ -6,7 +8,8 @@ export type MedicationDTO = {
   scheduledValue: number;
   scheduledUnit: 'day' | 'week';
   active: boolean;
-  scheduledDoses: any[]; // todo: type
+  careRecipientId: number;
+  scheduledDoses: ScheduledDoseDTO[]; // todo: type
 };
 
 export type MedicationListDTO = MedicationDTO[];

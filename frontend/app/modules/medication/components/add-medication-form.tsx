@@ -12,6 +12,7 @@ import { ControlledNumericInput } from '@/components/ui/input/numeric-input';
 
 type Props = {
   onSuccess: () => void;
+  careRecipientId: number;
 };
 
 const dosageUnits = createListCollection({
@@ -25,13 +26,13 @@ const frequencyUnits = createListCollection({
   ],
 });
 
-export const AddMedicationForm = ({ onSuccess }: Props) => {
+export const AddMedicationForm = ({ onSuccess, careRecipientId }: Props) => {
   const { loading, mutate } = useServerMutation(
     MedicationService.createMedication,
   );
 
   const handleSubmit = (data: MedicationDTO) => {
-    mutate(data).then(() => {
+    mutate({ ...data, careRecipientId }).then(() => {
       onSuccess();
     });
   };

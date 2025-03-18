@@ -7,9 +7,13 @@ import { HStack } from '@chakra-ui/react';
 import { DialogButton } from '@/components/ui/dialog';
 import { AddMedicationForm } from '@/modules/medication/components/add-medication-form';
 
-export const MedicationList = () => {
-  const { data, get } = useGet<MedicationListDTO>(
-    MedicationService.getMedicationList,
+type Props = {
+  careRecipientId: number;
+};
+
+export const MedicationList = ({ careRecipientId }: Props) => {
+  const { data, get } = useGet<MedicationListDTO>(() =>
+    MedicationService.getMedicationList(careRecipientId),
   );
 
   const refresh = () => {
@@ -24,7 +28,10 @@ export const MedicationList = () => {
         <DialogButton.Root>
           <DialogButton.Button>Add Medication</DialogButton.Button>
           <DialogButton.Dialog title="Add Medication">
-            <AddMedicationForm onSuccess={refresh} />
+            <AddMedicationForm
+              onSuccess={refresh}
+              careRecipientId={careRecipientId}
+            />
           </DialogButton.Dialog>
         </DialogButton.Root>
       </HStack>

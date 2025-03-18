@@ -18,5 +18,8 @@ export class CreateMedicationDTO {
   @IsEnum(ScheduleUnit)
   scheduledUnit: ScheduleUnit;
 
+  @IsPositive()
+  careRecipientId: number;
+
   accountId: number;
 }

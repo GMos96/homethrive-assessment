@@ -9,7 +9,7 @@ export const CareRecipientOverview = ({ id }: Props) => {
   return (
     <Stack gap="5">
       <h1 className="text-2xl">Medications for: </h1>
-      <MedicationList></MedicationList>
+      <MedicationList careRecipientId={id}></MedicationList>
     </Stack>
   );
 };
