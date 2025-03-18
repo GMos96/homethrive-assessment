@@ -4,8 +4,9 @@ import { ControlledInput } from '@/components/ui/input/input';
 import { Form } from '@/components/ui/form/form';
 import { useServerMutation } from '@/hooks/useServerMutation';
 import { CareRecipientService } from '@/modules/care-recipient/service/care-recipient.service';
-import { DialogSubmitButton } from '@/components/ui/dialog';
+import { DialogCancelButton, DialogSubmitButton } from '@/components/ui/dialog';
 import React from 'react';
+import { HStack } from '@chakra-ui/react';
 
 type FormProps = {
   onSuccess: () => void;
@@ -34,7 +35,10 @@ export const AddCareRecipientForm = ({ onSuccess }: FormProps) => {
             <ControlledInput fieldName="lastName"></ControlledInput>
           </FormField>
 
-          <DialogSubmitButton submitting={loading}></DialogSubmitButton>
+          <HStack justifyContent="flex-end">
+            <DialogSubmitButton submitting={loading}></DialogSubmitButton>
+            <DialogCancelButton></DialogCancelButton>
+          </HStack>
         </Form>
       </Stack>
     </>

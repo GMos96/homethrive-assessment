@@ -14,7 +14,7 @@ export const LoginForm = () => {
 
   const login = (loginDTO: LoginDTO) => {
     mutate(loginDTO).then(() => {
-      navigate('/care-recipients');
+      navigate('/care-recipient');
     });
   };
 

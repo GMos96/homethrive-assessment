@@ -1,5 +1,5 @@
 export interface CareRecipient {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   accountId: number;
