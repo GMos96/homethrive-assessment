@@ -40,18 +40,18 @@ export const AddMedicationForm = ({ onSuccess, careRecipientId }: Props) => {
   return (
     <Stack>
       <Form onSubmit={handleSubmit}>
-        <FormField label="Medication Name">
+        <FormField label="Medication Name" fieldName="name">
           <ControlledInput fieldName="name" required={true}></ControlledInput>
         </FormField>
 
         <HStack>
-          <FormField label="Dosage">
+          <FormField label="Dosage" fieldName="dosage">
             <ControlledNumericInput
               fieldName="dosage"
               required={true}
             ></ControlledNumericInput>
           </FormField>
-          <FormField label="Units">
+          <FormField label="Units" fieldName="dosageUnit">
             <ControlledSelect
               required={true}
               fieldName="dosageUnit"
@@ -61,13 +61,13 @@ export const AddMedicationForm = ({ onSuccess, careRecipientId }: Props) => {
         </HStack>
 
         <HStack gap={5}>
-          <FormField label="Frequency">
+          <FormField label="Frequency" fieldName="scheduledValue">
             <ControlledNumericInput
               fieldName="scheduledValue"
               required={true}
             ></ControlledNumericInput>
           </FormField>
-          <FormField label="Frequency Units">
+          <FormField label="Frequency Units" fieldName="scheduledUnit">
             <ControlledSelect
               required={true}
               fieldName="scheduledUnit"

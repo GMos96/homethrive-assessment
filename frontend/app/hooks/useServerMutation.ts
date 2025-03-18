@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 
 export const useServerMutation = <Body, ReturnType = void>(
   fetcher: (body: Body) => Promise<ReturnType>,
@@ -12,7 +13,7 @@ export const useServerMutation = <Body, ReturnType = void>(
         setLoading(false);
         return data;
       })
-      .catch((error) => Promise.reject(error))
+      .catch((error: AxiosError) => Promise.reject(error))
       .finally(() => setLoading(false));
   };
 

@@ -24,23 +24,21 @@ export const AddCareRecipientForm = ({ onSuccess }: FormProps) => {
   };
 
   return (
-    <>
-      <Stack>
-        <Form onSubmit={(value) => handleSubmit(value)}>
-          <FormField label="First Name">
-            <ControlledInput fieldName="firstName" required></ControlledInput>
-          </FormField>
+    <Stack>
+      <Form onSubmit={(value) => handleSubmit(value)}>
+        <FormField label="First Name" fieldName="firstName">
+          <ControlledInput fieldName="firstName" required></ControlledInput>
+        </FormField>
 
-          <FormField label="Last Name">
-            <ControlledInput fieldName="lastName" required></ControlledInput>
-          </FormField>
+        <FormField label="Last Name" fieldName="lastName">
+          <ControlledInput fieldName="lastName" required></ControlledInput>
+        </FormField>
 
-          <HStack justifyContent="flex-end">
-            <DialogSubmitButton submitting={loading}></DialogSubmitButton>
-            <DialogCancelButton></DialogCancelButton>
-          </HStack>
-        </Form>
-      </Stack>
-    </>
+        <HStack justifyContent="flex-end">
+          <DialogSubmitButton submitting={loading}></DialogSubmitButton>
+          <DialogCancelButton></DialogCancelButton>
+        </HStack>
+      </Form>
+    </Stack>
   );
 };

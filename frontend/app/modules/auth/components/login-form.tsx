@@ -9,6 +9,7 @@ import { useServerMutation } from '@/hooks/useServerMutation';
 import type { LoginDTO } from '@/modules/auth/dto/login.dto';
 import { useContext, useState } from 'react';
 import { AuthDispatchContext } from '@/core/context/auth.context';
+import { toaster } from '@/components/ui/toaster';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
@@ -25,6 +26,11 @@ export const LoginForm = () => {
       (error) => {
         if (error.error === 'Validation Error') {
           setErrors(error.message);
+        } else if (error.statusCode === 401) {
+          toaster.create({
+            description: error.message,
+            type: 'error',
+          });
         }
       },
     );
