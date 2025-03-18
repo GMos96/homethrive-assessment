@@ -1,4 +1,4 @@
-import { Dialog as ChakraDialog, Portal, Theme } from '@chakra-ui/react';
+import { Dialog as ChakraDialog, Portal } from '@chakra-ui/react';
 import { CloseButton } from './close-button';
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
@@ -65,7 +65,7 @@ export const DialogCancelButton = () => (
 );
 
 export const DialogSubmitButton = ({ submitting }: SubmitButtonProps) => (
-  <DialogActionTrigger asChild>
+  <DialogActionTrigger>
     <SubmitButton submitting={submitting}></SubmitButton>
   </DialogActionTrigger>
 );

@@ -8,13 +8,12 @@ import { DialogButton } from '@/components/ui/dialog';
 import { AddMedicationForm } from '@/modules/medication/components/add-medication-form';
 
 export const MedicationList = () => {
-  const { data, loading } = useGet<MedicationListDTO>(
+  const { data, get } = useGet<MedicationListDTO>(
     MedicationService.getMedicationList,
   );
 
   const refresh = () => {
-    // TODO: Much better refresh experience, bug with modal
-    window.location.reload();
+    get();
   };
 
   // TODO: loading state
