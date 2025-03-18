@@ -1,6 +1,5 @@
 import { NumberInput as ChakraNumberInput } from '@chakra-ui/react';
 import React from 'react';
-import { Input } from '@/components/ui/input/input';
 import { useFormContext } from 'react-hook-form';
 
 export interface NumberInputProps extends ChakraNumberInput.RootProps {
@@ -25,16 +24,17 @@ export const NumberInputLabel = ChakraNumberInput.Label;
 
 type ControlledNumericInputProps = {
   fieldName: string;
-};
+} & ChakraNumberInput.RootProps;
 
 export const ControlledNumericInput = ({
   fieldName,
+  required,
 }: ControlledNumericInputProps) => {
   const { register } = useFormContext();
   return (
-    <NumberInputRoot id={`${fieldName}-input`}>
+    <NumberInputRoot id={`${fieldName}-numeric-input`}>
       <NumberInputField
-        {...register(fieldName, { valueAsNumber: true })}
+        {...register(fieldName, { valueAsNumber: true, required })}
       ></NumberInputField>
     </NumberInputRoot>
   );

@@ -8,14 +8,13 @@ import {
 import { Stack } from '@/components/ui/stack/stack';
 import {
   DataList,
-  DataListItem,
   DataListItemLabel,
   DataListItemValue,
-  DataListRoot,
   HStack,
 } from '@chakra-ui/react';
 import { InactivateMedicationButton } from '@/modules/medication/components/inactivate-medication-button';
 import { MarkAsTakenButton } from '@/modules/medication/components/mark-as-taken-button';
+import { StatusPill } from '@/components/ui/pill/status-pill';
 
 type Props = {
   medication: MedicationDTO;
@@ -28,19 +27,18 @@ export const MedicationCard = ({ medication, onMutate }: Props) => {
   return (
     <Card>
       <CardHeader>
-        {medication.name} - {medication.dosage} {medication.dosageUnit}
+        <HStack gap={5}>
+          <h2>
+            {medication.name} - {medication.dosage} {medication.dosageUnit}
+          </h2>
+          <StatusPill status={medication.active} />
+        </HStack>
       </CardHeader>
       <CardBody>
         <Stack gap={3}>
           <DataList.Root orientation="horizontal">
             <DataList.Item>
-              <DataList.ItemLabel>Active</DataList.ItemLabel>
-              <DataList.ItemValue>
-                {medication.active ? 'Yes' : 'No'}
-              </DataList.ItemValue>
-            </DataList.Item>
-            <DataList.Item>
-              <DataListItemLabel>Next Scheduled Dose</DataListItemLabel>
+              <DataListItemLabel>Next Dose</DataListItemLabel>
               <DataListItemValue>
                 {formatDate(scheduledDose?.dueDate)}
               </DataListItemValue>

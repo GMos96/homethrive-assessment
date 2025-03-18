@@ -7,9 +7,19 @@ export const Input = (props: InputProps) => {
 
 type ControlledInputProps = {
   fieldName: string;
-};
+} & InputProps;
 
-export const ControlledInput = ({ fieldName }: ControlledInputProps) => {
+export const ControlledInput = ({
+  fieldName,
+  required,
+  ...props
+}: ControlledInputProps) => {
   const { register } = useFormContext();
-  return <Input id={`${fieldName}-input`} {...register(fieldName)} />;
+  return (
+    <Input
+      id={`${fieldName}-input`}
+      {...register(fieldName, { required })}
+      {...props}
+    />
+  );
 };

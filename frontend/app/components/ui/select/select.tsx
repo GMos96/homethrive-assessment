@@ -1,6 +1,5 @@
 import { Select as ChakraSelect, type SelectRootProps } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
-import { useRef } from 'react';
 
 export const Select = (props: SelectRootProps) => {
   return <ChakraSelect.Root {...props}>{props.children}</ChakraSelect.Root>;
@@ -12,11 +11,16 @@ type ControlledSelectProps = {
 
 export const ControlledSelect = ({
   fieldName,
+  required,
   ...props
 }: ControlledSelectProps) => {
   const { register } = useFormContext();
   return (
-    <Select id={`${fieldName}-select`} {...register(fieldName)} {...props}>
+    <Select
+      id={`${fieldName}-select`}
+      {...register(fieldName, { required })}
+      {...props}
+    >
       <ChakraSelect.HiddenSelect />
       <ChakraSelect.Control>
         <ChakraSelect.Trigger>

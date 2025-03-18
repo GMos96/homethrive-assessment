@@ -23,7 +23,7 @@ export const MedicationList = ({ careRecipientId }: Props) => {
   // TODO: loading state
 
   return (
-    <Stack>
+    <Stack gap={5}>
       <HStack>
         <DialogButton.Root>
           <DialogButton.Button>Add Medication</DialogButton.Button>

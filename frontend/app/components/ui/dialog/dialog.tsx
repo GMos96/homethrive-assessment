@@ -2,10 +2,8 @@ import { Dialog as ChakraDialog, Portal } from '@chakra-ui/react';
 import { CloseButton } from './close-button';
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  SubmitButton,
-  type SubmitButtonProps,
-} from '@/components/ui/form/submit-button';
+import { type SubmitButtonProps } from '@/components/ui/form/submit-button';
+import { useFormContext } from 'react-hook-form';
 
 interface DialogContentProps extends ChakraDialog.ContentProps {
   portalled?: boolean;
@@ -64,11 +62,22 @@ export const DialogCancelButton = () => (
   </DialogActionTrigger>
 );
 
-export const DialogSubmitButton = ({ submitting }: SubmitButtonProps) => (
-  <DialogActionTrigger>
-    <SubmitButton submitting={submitting}></SubmitButton>
-  </DialogActionTrigger>
-);
+export const DialogSubmitButton = ({ submitting }: SubmitButtonProps) => {
+  const { formState } = useFormContext();
+
+  return (
+    <DialogActionTrigger asChild>
+      <Button
+        type="submit"
+        colorScheme="blue"
+        loading={submitting}
+        disabled={!formState.isValid}
+      >
+        Submit
+      </Button>
+    </DialogActionTrigger>
+  );
+};
 
 export const DialogRoot = ChakraDialog.Root;
 export const DialogHeader = ChakraDialog.Header;
