@@ -6,6 +6,9 @@ export const CareRecipientService = {
   getCareRecipients: async () => {
     return get<CareRecipientListDTO>('/care-recipient');
   },
+  getCareRecipientById: async (careRecipientId: number) => {
+    return get<CareRecipient>(`/care-recipient/${careRecipientId}`);
+  },
   addCareRecipient: async (careRecipient: CareRecipient) => {
     return post<void>('/care-recipient', careRecipient);
   },

@@ -4,7 +4,7 @@ import { OwnedEntity } from '../common/entity/owned.entity';
 @Entity()
 export class CareRecipient extends OwnedEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ length: 128 })
   firstName: string;

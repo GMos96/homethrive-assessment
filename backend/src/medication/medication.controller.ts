@@ -13,7 +13,7 @@ import { Medication } from './medication.entity';
 import { MedicationService } from './medication.service';
 import { CreateMedicationDTO } from './dto/create-medication.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { Request } from '../auth/request';
+import { Request } from '../common/request';
 
 @Controller('medication')
 export class MedicationController {

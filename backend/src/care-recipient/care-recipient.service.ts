@@ -17,6 +17,13 @@ export class CareRecipientService {
     });
   }
 
+  async findOneById(
+    id: number,
+    accountId: number,
+  ): Promise<CareRecipient | null> {
+    return await this.careRecipientRepository.findOneBy({ id, accountId });
+  }
+
   async create(
     careRecipient: CreateCareRecipientDTO,
     accountId: number,
